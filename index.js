@@ -17,7 +17,7 @@ const hostname = "127.0.0.1";
 const port = 3000;
 
 
-app.get("/", (req, res) => {
+app.get("/dashboard", (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   let containers  = fs.readdirSync('./logs')
   
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/:container", (req, res) => {
+app.get("/dashboard/:container", (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
   let logs  = fs.readFileSync('./logs/'+req.params.container+'.log', 'utf8')
 
