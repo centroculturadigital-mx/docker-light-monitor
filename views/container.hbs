@@ -18,8 +18,8 @@
     </header>
 
     <main>
-        {{#each logs}}
-            <p>{{this}}</p>
+        {{#each metrics}}
+            <p>CPU: {{this.cpu}}, Memoria: {{this.ram}}, {{this.date}}</p>
         {{/each}}
     </main>
 </body>

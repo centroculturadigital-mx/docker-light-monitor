@@ -15,11 +15,11 @@
         <h1>Containers</h1>
         <p>List of all the services...</p>
         <div class="grid">
-            {{#each containers}}
+            {{#each projects}}
             <article>
                 <header>
                     <h1>
-                        <a href="/dashboard/{{this}}">{{this}}</a>
+                        <a href="/dashboard/{{this.id}}">{{this.title}}</a>
                     </h1>
                 </header>
             </article>
