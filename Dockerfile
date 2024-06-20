@@ -8,4 +8,10 @@ RUN npm install
 
 COPY . .
 
-CMD node index.js
+ARG PORT
+ARG API_URL
+ENV PORT $PORT
+ENV API_URL $API_URL
+
+
+CMD node index.mjs
