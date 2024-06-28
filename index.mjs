@@ -1,6 +1,7 @@
 import express  from "express";
 import { engine }  from 'express-handlebars';
 import { formatDistance } from "date-fns";
+import fetch from "node-fetch"
 
 const projectsQuery = `
 query {
@@ -37,12 +38,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 const hostname = "127.0.0.1";
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3003;
 
 
 app.get("/dashboard", async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-  const resp  = await fetch(process.env.API_URL || 'http://localhost:3000/api/graphql', {
+  const resp  = await fetch(process.env.API_URL || 'https://test.centroculturadigital.mx/api/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ app.get("/dashboard", async (req, res) => {
 
 app.get("/dashboard/:container", async (req, res) => {
   //Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-  const resp  = await fetch(process.env.API_URL || 'http://localhost:3000/api/graphql', {
+  const resp  = await fetch(process.env.API_URL || 'https://test.centroculturadigital.mx/api/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
