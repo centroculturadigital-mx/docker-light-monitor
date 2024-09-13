@@ -78,8 +78,7 @@ const Container = ()=> {
             }
         ]
         }
-        const response = await request('https://test.centroculturadigital.mx/api/graphql', projectMetrics, {
-        // const response = await request('http://localhost:3000/api/graphql', projectMetrics, {
+        const response = await request(`${process.env.REACT_APP_BACKEND_URL}/api/graphql`, projectMetrics, {
           where: {id},
           whereMetrics
         });
@@ -91,8 +90,7 @@ const Container = ()=> {
         setUrl(response.project?.url || '#')
         setMetrics(response.project?.metrics || []);
         setLoading(false);
-        // const response2 = (await (await fetch('http://localhost:3003/api/' + response.project.container)).json()).data
-        const response2 = (await (await fetch('https://test.centroculturadigital.mx/docker/' + response.project.container)).json()).data
+        const response2 = (await (await fetch(`${process.env.REACT_APP_BACKEND_URL}/docker/` + response.project.container)).json()).data
         if (response2) {
           console.log('response2', response2.State.StartedAt);
           setContainerTag(response2.Config.Image.split(':')[1])
@@ -161,48 +159,48 @@ const Container = ()=> {
   },[metrics, dataFormat])
 
   const exportToExcel = async () => {
-    setExporting(true);
-    const budgetRes: { budgets: Budget[] } = await budgetsGet({
-      filters,
-      sortBy,
-      pagination: null // This removes pagination
-    });
+    // setExporting(true);
+    // const budgetRes: { budgets: Budget[] } = await budgetsGet({
+    //   filters,
+    //   sortBy,
+    //   pagination: null // This removes pagination
+    // });
 
-    const wb = XLSX.utils.book_new();
+    // const wb = XLSX.utils.book_new();
     
-    // Convert JSON to worksheet
-    const ws = XLSX.utils.json_to_sheet(budgetRes.budgets);
+    // // Convert JSON to worksheet
+    // const ws = XLSX.utils.json_to_sheet(budgetRes.budgets);
     
-    // Add worksheet to workbook
-    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+    // // Add worksheet to workbook
+    // XLSX.utils.book_append_sheet(wb, ws, 'Data');
     
-    // Define binary type and write workbook
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    // // Define binary type and write workbook
+    // const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
     
-    // Convert binary string to character array
-    function s2ab(s: string) {
-      const buf = new ArrayBuffer(s.length);
-      const view = new Uint8Array(buf);
-      for (let i = 0; i < s.length; i++) {
-        view[i] = s.charCodeAt(i) & 0xFF;
-      }
-      return buf;
-    }
+    // // Convert binary string to character array
+    // function s2ab(s: string) {
+    //   const buf = new ArrayBuffer(s.length);
+    //   const view = new Uint8Array(buf);
+    //   for (let i = 0; i < s.length; i++) {
+    //     view[i] = s.charCodeAt(i) & 0xFF;
+    //   }
+    //   return buf;
+    // }
     
     // Create a Blob for the file
-    const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+    // const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
     
-    // Create a link to trigger the download
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'Data.xlsx');
+    // // Create a link to trigger the download
+    // const url = window.URL.createObjectURL(blob);
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.setAttribute('download', 'Data.xlsx');
     
-    // Append to document, click, and remove
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setExporting(false);
+    // // Append to document, click, and remove
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    // setExporting(false);
   };
 
 

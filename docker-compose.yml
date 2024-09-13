@@ -16,7 +16,7 @@ services:
       - ./monitor-keystone-backend/keystone.db:/app/keystone.db
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.monitor-backend.rule=Host(`replace.with-your-domain.url`)"
+      - "traefik.http.routers.monitor-backend.rule=Host(`${SERVICE_URL}`)"
       - "traefik.http.routers.monitor-backend.entrypoints=websecure"
       - "traefik.http.routers.monitor-backend.tls.certresolver=myresolver"
     environment:
@@ -47,9 +47,9 @@ services:
         #  - PORT=3000
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.monitor.rule=Host(`replace.with-your-domain.url`) && PathPrefix(`/dashboard`) "
-      - "traefik.http.routers.monitor.entrypoints=websecure"
-      - "traefik.http.routers.monitor.tls.certresolver=myresolver"
+      - "traefik.http.routers.monitor-frontend.rule=Host(`${SERVICE_URL}`) && PathPrefix(`/dashboard`) "
+      - "traefik.http.routers.monitor-frontend.entrypoints=websecure"
+      - "traefik.http.routers.monitor-frontend.tls.certresolver=myresolver"
       # - "traefik.http.middlewares.monitor-auth.basicauth.users=ccd:$$apr1$$yyP0fIxx$$bXa6dwVT75B4bawfp4sfz0"
       # - "traefik.http.routers.monitor.middlewares=monitor-auth"
   
@@ -65,9 +65,9 @@ services:
       - 3003
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dockerode.rule=Host(`replace.with-your-domain.url`) && PathPrefix(`/docker`) "
-      - "traefik.http.routers.dockerode.entrypoints=websecure"
-      - "traefik.http.routers.dockerode.tls.certresolver=myresolver"
+      - "traefik.http.routers.docker-api.rule=Host(`${SERVICE_URL}`) && PathPrefix(`/docker`) "
+      - "traefik.http.routers.docker-api.entrypoints=websecure"
+      - "traefik.http.routers.docker-api.tls.certresolver=myresolver"
 
 volumes:
   postgres-data:
