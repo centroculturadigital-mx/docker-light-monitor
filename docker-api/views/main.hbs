@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ pageTile }}</title>
+    {{!-- <link rel="stylesheet" href="/css/main.css"> --}}
+</head>
+
+<body>
+
+    <main>
+        <h1>Containers</h1>
+        <p>List of all the services...</p>
+        <div class="grid">
+            {{#each projects}}
+            <article>
+                <header>
+                    <h1>
+                        <a href="/dashboard/{{this.id}}">{{this.title}}</a>
+                    </h1>
+                </header>
+            </article>
+            {{/each}}
+        </div>
+    </main>
+</body>
+
+</html>

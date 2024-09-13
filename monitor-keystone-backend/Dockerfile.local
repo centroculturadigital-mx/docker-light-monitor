@@ -1,0 +1,8 @@
+FROM node:21-alpine 
+
+WORKDIR /app
+
+RUN npm i -g pnpm
+
+
+CMD ["pnpm", "dev"]

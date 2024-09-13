@@ -1,0 +1,54 @@
+version: "2.1"
+
+services:
+
+  monitor-backend:
+    container_name: monitor-backend
+    build: 
+      context: ./monitor-keystone-backend
+      dockerfile: Dockerfile.local
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes: 
+      - ./monitor-keystone-backend/:/app/
+    environment:
+      - DB_CONNECTION=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=secret
+      - DB_NAME=monitor
+
+  postgres:
+    image: postgres:12
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DATABASE=monitor
+
+  monitor-frontend:
+    container_name: monitor
+    build: 
+      context: ./monitor-react-frontend
+      dockerfile: Dockerfile.local
+    volumes: 
+      - ./monitor-react-frontend/:/app/
+    ports: 
+      - 3001:3000
+
+  docker-api:
+    container_name: docker-api
+    build: 
+      context: ./docker-api
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./docker-api/:/app/
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3002:3000
+
+volumes:
+  postgres-data:
+

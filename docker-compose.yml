@@ -1,0 +1,78 @@
+version: "2"
+
+services:
+
+  monitor-backend:
+    container_name: monitor-backend
+    build: 
+      context: ./monitor-keystone-backend
+    #image: monitor-keystone-backend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    volumes: 
+      - ./monitor-keystone-backend/keystone.db:/app/keystone.db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitor-backend.rule=Host(`replace.with-your-domain.url`)"
+      - "traefik.http.routers.monitor-backend.entrypoints=websecure"
+      - "traefik.http.routers.monitor-backend.tls.certresolver=myresolver"
+    environment:
+      - DB_CONNECTION=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=secret
+      - DB_NAME=monitor
+
+  postgres:
+    image: postgres:12
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DATABASE=monitor
+
+  monitor-frontend:
+    container_name: monitor
+    build: 
+      context: ./monitor-keystone-backend
+    #image: monitor-react-frontend
+    restart: unless-stopped
+    expose:
+      - 80
+        #environment:
+        #  - PORT=3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitor.rule=Host(`replace.with-your-domain.url`) && PathPrefix(`/dashboard`) "
+      - "traefik.http.routers.monitor.entrypoints=websecure"
+      - "traefik.http.routers.monitor.tls.certresolver=myresolver"
+      # - "traefik.http.middlewares.monitor-auth.basicauth.users=ccd:$$apr1$$yyP0fIxx$$bXa6dwVT75B4bawfp4sfz0"
+      # - "traefik.http.routers.monitor.middlewares=monitor-auth"
+  
+  docker-api:
+    container_name: docker-api
+    build: 
+      context: ./docker-api
+    # image: docker-api
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    expose:
+      - 3003
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dockerode.rule=Host(`replace.with-your-domain.url`) && PathPrefix(`/docker`) "
+      - "traefik.http.routers.dockerode.entrypoints=websecure"
+      - "traefik.http.routers.dockerode.tls.certresolver=myresolver"
+
+volumes:
+  postgres-data:
+
+networks:
+  default:
+    external:
+      name: traefik-network

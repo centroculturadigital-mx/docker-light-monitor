@@ -1,0 +1,51 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{{pageTile}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a href="/dashboard">Back</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {{#each metrics}}
+        <p>CPU: {{this.cpu}}, Memoria: {{this.ram}}, {{this.date}}</p>
+        {{/each}}
+        <div id="cpuchart"></div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const metrics = {{{ JSON.stringify(metrics)}}};
+
+        const data = [{
+            year: 2010, count:
+                10
+        }, { year: 2011, count: 20 }, { year: 2012, count: 15 }, {
+            year: 2013,
+            count: 25
+        }, { year: 2014, count: 22 }, { year: 2015, count: 30 }, {
+            year:
+                2016, count: 28
+        },]; new Chart(document.getElementById('cpuchart'), {
+            type: 'bar', data: {
+                labels: data.map(row => row.year), datasets: [{
+                    label: 'Acquisitions by year', data: data.map(row => row.count)
+                }]
+            }
+        });
+      });
+
+    </script>
+</body>
+
+</html>
