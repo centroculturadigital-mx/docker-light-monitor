@@ -115,6 +115,7 @@ type Project {
   id: ID!
   title: String
   container: String
+  url: String
   metrics(where: MetricWhereInput! = {}, orderBy: [MetricOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MetricWhereUniqueInput): [Metric!]
   metricsCount(where: MetricWhereInput! = {}): Int
 }
@@ -130,6 +131,7 @@ input ProjectWhereInput {
   id: IDFilter
   title: StringFilter
   container: StringFilter
+  url: StringFilter
   metrics: MetricManyRelationFilter
 }
 
@@ -143,11 +145,13 @@ input ProjectOrderByInput {
   id: OrderDirection
   title: OrderDirection
   container: OrderDirection
+  url: OrderDirection
 }
 
 input ProjectUpdateInput {
   title: String
   container: String
+  url: String
   metrics: MetricRelateToManyForUpdateInput
 }
 
@@ -166,6 +170,7 @@ input ProjectUpdateArgs {
 input ProjectCreateInput {
   title: String
   container: String
+  url: String
   metrics: MetricRelateToManyForCreateInput
 }
 

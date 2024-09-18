@@ -23,6 +23,7 @@ model Project {
   id        String   @id @default(cuid())
   title     String   @default("")
   container String   @default("")
+  url       String   @default("")
   metrics   Metric[] @relation("Metric_project")
 }
 

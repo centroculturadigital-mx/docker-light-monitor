@@ -70,6 +70,7 @@ var lists = {
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
       container: (0, import_fields.text)({ validation: { isRequired: true } }),
+      url: (0, import_fields.text)(),
       // with this field, you can add some Tags to Posts
       metrics: (0, import_fields.relationship)({
         ref: "Metric.project",
