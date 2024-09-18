@@ -63,6 +63,7 @@ export const lists: Lists = {
     fields: {
       title: text({ validation: { isRequired: true } }),
       container: text({ validation: { isRequired: true } }),
+      url: text(),
 
       // with this field, you can add some Tags to Posts
       metrics: relationship({
