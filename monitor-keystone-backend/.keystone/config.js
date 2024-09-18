@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // keystone.ts
@@ -93,6 +103,9 @@ var lists = {
   })
 };
 
+// keystone.ts
+var import_dotenv = __toESM(require("dotenv"));
+
 // auth.ts
 var import_crypto = require("crypto");
 var import_auth = require("@keystone-6/auth");
@@ -127,6 +140,9 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
+import_dotenv.default.config();
+var DATABASE_URL = process.env.DATABASE_URL || "file:./keystone.db";
+console.log("DATABASE_URL", DATABASE_URL);
 var keystone_default = withAuth(
   (0, import_core2.config)({
     db: {
@@ -134,7 +150,7 @@ var keystone_default = withAuth(
       //   for more information on what database might be appropriate for you
       //   see https://keystonejs.com/docs/guides/choosing-a-database#title
       provider: "sqlite",
-      url: "file:./keystone.db"
+      url: DATABASE_URL
     },
     lists,
     session,

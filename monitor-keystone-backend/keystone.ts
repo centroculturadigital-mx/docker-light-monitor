@@ -9,10 +9,13 @@ import { config } from '@keystone-6/core';
 
 // to keep this file tidy, we define our schema in a different file
 import { lists } from './schema';
-
+import dotenv from 'dotenv';
+dotenv.config();
 // authentication is configured separately here too, but you might move this elsewhere
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';
+const DATABASE_URL = process.env.DATABASE_URL || 'file:./keystone.db';
+console.log('DATABASE_URL', DATABASE_URL);
 
 export default withAuth(
   config({
@@ -21,7 +24,7 @@ export default withAuth(
       //   for more information on what database might be appropriate for you
       //   see https://keystonejs.com/docs/guides/choosing-a-database#title
       provider: 'sqlite',
-      url: 'file:./keystone.db',
+      url: DATABASE_URL,
     },
     lists,
     session,
