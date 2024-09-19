@@ -4,12 +4,16 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  font-size: 20px;
+  font-size: 16px;
   color: #c397e8;
 }
 
+* {
+  font-size: 16px;
+}
+
 .ascii-art {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Fira Code", monospace;
   color: #cae897;
   white-space: pre;
 }
@@ -38,9 +42,9 @@ button:hover{
   background-repeat: repeat-x;
 }
 
-.title        { width: 50%;
-  font-size: 1.2rem;
-  overflow-x: hidden }
+.title        { 
+  overflow-x: hidden 
+}
 .title:before { 
   width: 0;
   white-space: nowrap;
@@ -75,7 +79,7 @@ button:hover{
       display: inline-block;
       margin-bottom: 15px;
   }    .select select {
-          font-family: 'Arial';
+          font-family: "Fira Code", monospace;
           display: inline-block;
           cursor: pointer;
           padding: 10px 15px;

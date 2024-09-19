@@ -90,7 +90,7 @@ const Container = ()=> {
         setUrl(response.project?.url || '#')
         setMetrics(response.project?.metrics || []);
         setLoading(false);
-        const response2 = (await (await fetch(`${process.env.REACT_APP_BACKEND_URL}/docker/` + response.project.container)).json()).data
+        const response2 = (await (await fetch(`${process.env.REACT_APP_DOCKER_API}/docker/` + response.project.container)).json()).data
         if (response2) {
           console.log('response2', response2.State.StartedAt);
           setContainerTag(response2.Config.Image.split(':')[1])
@@ -262,14 +262,17 @@ const Container = ()=> {
         </div>
         :
         <div style={{paddingBottom: "50px", margin: "30px"}}>
-                    <h1 className="title" style={{color: "#cae797", display: "grid"}}>
+                    <div className="title">
+                    <h1  style={{color: "#cae797", display: "flex", margin: 0, position: 'relative'}}>
                       <span style={{backgroundColor: '#bf94e4', display: 'flex', alignItems: "center"}}>
                         <span style={{padding: '0 5px'}}>{project} </span>
                         <img style={{height: "30px", margin: "0 20px"}} src="/dashboard/dobleArrow.png" alt="arrow" />
-                        <a style={{fontSize: '0.8rem', color: "#cae797" }} href={url} rel="noreferrer" target="_blank">{url ? url.replace(/^https?:\/\//, ''): ''} [↗]</a>
-                        <button style={{color: "#2b2d3d", background: "#cae797", border: "none", height: "100%", margin: "0 10px", padding: "0 10px"}} onClick={() => setPickingAvgOrByHour(true)}>Ver fechas anteriores</button>
+                        <a style={{color: "#cae797" }} href={url} rel="noreferrer" target="_blank">{url ? url.replace(/^https?:\/\//, ''): ''} [↗]</a>
+                        <button style={{color: "#2b2d3d", background: "#cae797", border: "none", height: "100%", margin: "0 0 0 10px", padding: "0 10px"}} onClick={() => setPickingAvgOrByHour(true)}>Ver fechas anteriores</button>
                       </span>
+                      <span style={{flex: 1, margin: "-30px 0", position: 'relative', backgroundColor: '#2b2d3d'}}></span>
                     </h1>
+                    </div>
                     <p>
                       Tag: {containerTag}, corriendo desde: {containerUpdatedDate}
                     </p>
@@ -282,12 +285,22 @@ const Container = ()=> {
           </div>
           <p>{format(daySelected, 'dd MMM')} {dataFormat == 'byHour' ? '' : `- ${format(endDaySelected, 'dd MMM')}`} </p>
           <p>Registro del uso de CPU y Memoria de la página del centro de cultura digital, en los últimos 30 días.</p>
-          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black",  fontSize: "1rem", padding: "5px"}}>Uso de CPU</h2></div>
-            {cpuData  && <Bar data={cpuData} style={{maxHeight: '300px', margin: '30px'}}/>}
+          <div><h2 style={{display: "inline-block", backgroundColor: "#cae797", color: "black", padding: "5px", margin: '50px 0'}}>Uso de CPU</h2></div>
+            {cpuData  && <Bar data={cpuData} style={{maxHeight: '300px', margin: '30px'}} options={{scales: {x: {ticks: {
+                        color: 'white',
+                        font: {
+                            family: "'Fira Code', monospace" 
+                        }
+                    }}}}}/>}
             <p>{`~> CPU === Se refiere a la cantidad de capacidad de procesamiento que está siendo utilizada en un momento dado. Es una métrica importante para monitorear, ya que puede indicar cuán intensamente está siendo utilizado el servidor`}</p>
 
-          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black", fontSize: "1rem", padding: "5px"}}>Uso de Memoria</h2></div>
-            {ramData && <Bar data={ramData} style={{maxHeight: '300px', margin: '30px'}}/>}
+          <div><h2 style={{display: "inline-block", backgroundColor: "#cae797", color: "black", padding: "5px", margin: '50px 0'}}>Uso de Memoria</h2></div>
+            {ramData && <Bar data={ramData} style={{maxHeight: '300px', margin: '30px'}} options={{scales: {x: {ticks: {
+                        color: 'white',
+                        font: {
+                            family: "'Fira Code', monospace" 
+                        }
+                    }}}}}/>}
             <p>{`~> RAM === Se refiere a la cantidad de memoria RAM que está siendo utilizada en un momento dado. Al igual que con el uso de la CPU, el uso de la memoria es una métrica crucial para monitorear, ya que impacta directamente en el rendimiento del servidor`}</p>
         </div>)
     }

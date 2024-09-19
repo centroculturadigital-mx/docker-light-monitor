@@ -56,7 +56,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <pre style={{marginLeft: '50px', fontSize: "1rem", fontWeight: "bold"}} className="ascii-art" ref={asciiTextRef}></pre>
+      <pre style={{marginLeft: '50px', fontWeight: "bold"}} className="ascii-art" ref={asciiTextRef}></pre>
       <ul>
         {projects.length > 0 ? (
           projects.map((p) => (

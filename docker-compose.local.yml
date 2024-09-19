@@ -47,7 +47,7 @@ services:
       - ./docker-api/:/app/
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - 3002:3000
+      - 3002:3003
 
 volumes:
   postgres-data:

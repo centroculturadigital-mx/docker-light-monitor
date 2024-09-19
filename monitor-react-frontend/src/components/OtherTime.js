@@ -194,7 +194,7 @@ const OtherTime = ()=> {
                       <span style={{backgroundColor: '#bf94e4', display: 'flex', alignItems: "center"}}>
                         {project} 
                         <img style={{height: "30px", margin: "0 20px"}} src="/dashboard/dobleArrow.png" alt="arrow" />
-                        <a style={{fontSize: '0.8rem', color: "#cae797" }} href={url} rel="noreferrer" target="_blank">{url ? url.replace(/^https?:\/\//, ''): ''} [↗]</a>
+                        <a style={{color: "#cae797" }} href={url} rel="noreferrer" target="_blank">{url ? url.replace(/^https?:\/\//, ''): ''} [↗]</a>
                       </span>
                     </h1>
         <div className='select'>  
@@ -205,11 +205,11 @@ const OtherTime = ()=> {
             <div class="select_arrow"></div>
           </div>
           <p>Registro del uso de CPU y Memoria de la página del centro de cultura digital, en los últimos 30 días.</p>
-          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black",  fontSize: "1rem", padding: "5px"}}>Uso de CPU</h2></div>
+          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black",   padding: "5px"}}>Uso de CPU</h2></div>
             {cpuData  && <Bar data={cpuData} style={{maxHeight: '300px', margin: '30px'}}/>}
             <p>{`~> CPU === Se refiere a la cantidad de capacidad de procesamiento que está siendo utilizada en un momento dado. Es una métrica importante para monitorear, ya que puede indicar cuán intensamente está siendo utilizado el servidor`}</p>
 
-          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black", fontSize: "1rem", padding: "5px"}}>Uso de Memoria</h2></div>
+          <div><h2 style={{display: "inline", backgroundColor: "#cae797", color: "black",  padding: "5px"}}>Uso de Memoria</h2></div>
             {ramData && <Bar data={ramData} style={{maxHeight: '300px', margin: '30px'}}/>}
             <p>{`~> RAM === Se refiere a la cantidad de memoria RAM que está siendo utilizada en un momento dado. Al igual que con el uso de la CPU, el uso de la memoria es una métrica crucial para monitorear, ya que impacta directamente en el rendimiento del servidor`}</p>
         </div>)
