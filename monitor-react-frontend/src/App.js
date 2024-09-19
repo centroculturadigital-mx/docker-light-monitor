@@ -8,7 +8,10 @@ import OtherTime from './components/OtherTime';
 
 function App() {
   return (<div>
-    <img src="/dashboard/labweb_logo.png" alt="logo" style={{height: "60px", margin: "20px"}} />
+    <a href="/dashboard">
+      <img src="/dashboard/labweb_logo.png" alt="logo" style={{height: "60px", margin: "20px"}} />
+    </a>
+
     <div className="App">
       <Routes>
 
