@@ -7,6 +7,7 @@ import { addDays, format, formatDistance, subDays } from "date-fns";
 import { es } from 'date-fns/locale';
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
+import * as XLSX from 'xlsx';
 
 const projectMetrics = gql`
 query ($where: ProjectWhereUniqueInput!, $whereMetrics: MetricWhereInput) {
@@ -56,6 +57,7 @@ const Container = ()=> {
   const [ramData, setRamData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [exporting, setExporting] = useState(false)
 
   const [dataFormat, setDataFormat] = useState('byDay')
 
@@ -159,48 +161,42 @@ const Container = ()=> {
   },[metrics, dataFormat])
 
   const exportToExcel = async () => {
-    // setExporting(true);
-    // const budgetRes: { budgets: Budget[] } = await budgetsGet({
-    //   filters,
-    //   sortBy,
-    //   pagination: null // This removes pagination
-    // });
+    setExporting(true);
 
-    // const wb = XLSX.utils.book_new();
+    const wb = XLSX.utils.book_new();
     
-    // // Convert JSON to worksheet
-    // const ws = XLSX.utils.json_to_sheet(budgetRes.budgets);
+    // Convert JSON to worksheet
+    const ws = XLSX.utils.json_to_sheet(metrics);
     
-    // // Add worksheet to workbook
-    // XLSX.utils.book_append_sheet(wb, ws, 'Data');
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Data');
     
-    // // Define binary type and write workbook
-    // const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    // Define binary type and write workbook
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
     
-    // // Convert binary string to character array
-    // function s2ab(s: string) {
-    //   const buf = new ArrayBuffer(s.length);
-    //   const view = new Uint8Array(buf);
-    //   for (let i = 0; i < s.length; i++) {
-    //     view[i] = s.charCodeAt(i) & 0xFF;
-    //   }
-    //   return buf;
-    // }
+    // Convert binary string to character array
+    function s2ab(s) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) {
+        view[i] = s.charCodeAt(i) & 0xFF;
+      }
+      return buf;
+    }
     
-    // Create a Blob for the file
-    // const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+    const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
     
-    // // Create a link to trigger the download
-    // const url = window.URL.createObjectURL(blob);
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.setAttribute('download', 'Data.xlsx');
+    // Create a link to trigger the download
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'Data.xlsx');
     
-    // // Append to document, click, and remove
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-    // setExporting(false);
+    // Append to document, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setExporting(false);
   };
 
 
@@ -282,7 +278,9 @@ const Container = ()=> {
               <option value="byHour">Valor por hora </option>
             </select>
             <div class="select_arrow"></div>
+          <button style={{background: "#bf94e4", marginLeft: '50vw', padding: "10px", color: "rgb(202, 231, 151)", borderRadius: '50px'}} onClick={()=> exportToExcel()}>Exportar a XLSX</button>
           </div>
+
           <p>{format(daySelected, 'dd MMM')} {dataFormat == 'byHour' ? '' : `- ${format(endDaySelected, 'dd MMM')}`} </p>
           <p>Registro del uso de CPU y Memoria de la página del centro de cultura digital, en los últimos 30 días.</p>
           <div><h2 style={{display: "inline-block", backgroundColor: "#cae797", color: "black", padding: "5px", margin: '50px 0'}}>Uso de CPU</h2></div>
