@@ -1,28 +1,39 @@
-# Keystone Project Starter
+# Backend del monitor de contendores
 
-Welcome to Keystone!
+Guarda para cada proyecto: 
+    - Nombre del proyecto
+    - Nombre del contenedor
+    - El url donde está el servicio
+    - Su imagen
+    - Tag
+    - Fecha de inicio y fin 
+    - Métricas de uso de CPU y memoria
 
-Run
+## Cómo continuar el desarrollo de esta app
+
+¡Bienvenid@ a Keystone!
+
+Ejecuta
 
 ```
 yarn dev
 ```
 
-To view the config for your new app, look at [./keystone.ts](./keystone.ts)
+Para ver la configuración de tu nueva aplicación, revisa el archivo [./keystone.ts](./keystone.ts).
 
-This project starter is designed to give you a sense of the power Keystone can offer you, and show off some of its main features. It's also a pretty simple setup if you want to build out from it.
+Este proyecto de inicio está diseñado para que te hagas una idea del poder que te puede ofrecer Keystone y para mostrarte algunas de sus características principales. También es una configuración bastante simple si deseas desarrollarlo a partir de aquí.
 
-We recommend you use this alongside our [getting started walkthrough](https://keystonejs.com/docs/walkthroughs/getting-started-with-create-keystone-app) which will walk you through what you get as part of this starter.
+Te recomendamos que lo uses junto con nuestra [guía de inicio](https://keystonejs.com/docs/walkthroughs/getting-started-with-create-keystone-app), que te guiará a través de todo lo que obtienes como parte de este proyecto inicial.
 
-If you want an overview of all the features Keystone offers, check out our [features](https://keystonejs.com/why-keystone#features) page.
+Si quieres una visión general de todas las características que ofrece Keystone, consulta nuestra página de [características](https://keystonejs.com/why-keystone#features).
 
-## Some Quick Notes On Getting Started
+## Algunas Notas Rápidas Para Comenzar
 
-### Changing the database
+### Cambiando la base de datos
 
-We've set you up with an [SQLite database](https://keystonejs.com/docs/apis/config#sqlite) for ease-of-use. If you're wanting to use PostgreSQL, you can!
+Hemos configurado una [base de datos SQLite](https://keystonejs.com/docs/apis/config#sqlite) para facilitar el uso. ¡Si prefieres usar PostgreSQL, puedes hacerlo!
 
-Just change the `db` property on line 16 of the Keystone file [./keystone.ts](./keystone.ts) to
+Simplemente cambia la propiedad `db` en la línea 16 del archivo de Keystone [./keystone.ts](./keystone.ts) a:
 
 ```typescript
 db: {
@@ -31,22 +42,22 @@ db: {
 }
 ```
 
-And provide your database url from PostgreSQL.
+Y proporciona la URL de tu base de datos de PostgreSQL.
 
-For more on database configuration, check out or [DB API Docs](https://keystonejs.com/docs/apis/config#db)
+Para más información sobre la configuración de bases de datos, consulta nuestra [documentación de la API de bases de datos](https://keystonejs.com/docs/apis/config#db).
 
-### Auth
+### Autenticación
 
-We've put auth into its own file to make this humble starter easier to navigate. To explore it without auth turned on, comment out the `isAccessAllowed` on line 21 of the Keystone file [./keystone.ts](./keystone.ts).
+Hemos colocado la autenticación en su propio archivo para que este proyecto de inicio sea más fácil de navegar. Para explorarlo sin que la autenticación esté activada, comenta la función `isAccessAllowed` en la línea 21 del archivo de Keystone [./keystone.ts](./keystone.ts).
 
-For more on auth, check out our [Authentication API Docs](https://keystonejs.com/docs/apis/auth#authentication-api)
+Para más información sobre autenticación, consulta nuestra [documentación de la API de autenticación](https://keystonejs.com/docs/apis/auth#authentication-api).
 
-### Adding a frontend
+### Agregando un frontend
 
-As a Headless CMS, Keystone can be used with any frontend that uses GraphQL. It provides a GraphQL endpoint you can write queries against at `/api/graphql` (by default [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)). At Thinkmill, we tend to use [Next.js](https://nextjs.org/) and [Apollo GraphQL](https://www.apollographql.com/docs/react/get-started/) as our frontend and way to write queries, but if you have your own favourite, feel free to use it.
+Como un CMS sin cabeza, Keystone se puede usar con cualquier frontend que utilice GraphQL. Proporciona un endpoint de GraphQL contra el que puedes escribir consultas en `/api/graphql` (por defecto [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)). En Thinkmill, solemos usar [Next.js](https://nextjs.org/) y [Apollo GraphQL](https://www.apollographql.com/docs/react/get-started/) como nuestro frontend y la forma de escribir consultas, pero si tienes tu propio favorito, siéntete libre de usarlo.
 
-A walkthrough on how to do this is forthcoming, but in the meantime our [todo example](https://github.com/keystonejs/keystone-react-todo-demo) shows a Keystone set up with a frontend. For a more full example, you can also look at an example app we built for [Prisma Day 2021](https://github.com/keystonejs/prisma-day-2021-workshop)
+Próximamente habrá una guía sobre cómo hacerlo, pero mientras tanto, nuestro [ejemplo de todo](https://github.com/keystonejs/keystone-react-todo-demo) muestra una configuración de Keystone con un frontend. Para un ejemplo más completo, también puedes consultar una aplicación de ejemplo que construimos para el [Prisma Day 2021](https://github.com/keystonejs/prisma-day-2021-workshop).
 
-### Embedding Keystone in a Next.js frontend
+### Incrustando Keystone en un frontend de Next.js
 
-While Keystone works as a standalone app, you can embed your Keystone app into a [Next.js](https://nextjs.org/) app. This is quite a different setup to the starter, and we recommend checking out our walkthrough for that [here](https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs#how-to-embed-keystone-sq-lite-in-a-next-js-app).
+Aunque Keystone funciona como una aplicación independiente, puedes incrustar tu aplicación de Keystone en una aplicación de Next.js. Esta es una configuración bastante diferente a la del proyecto inicial, y te recomendamos que revises nuestra guía para eso aquí.
