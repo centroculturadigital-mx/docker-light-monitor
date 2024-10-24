@@ -35,7 +35,9 @@ const Dashboard = () => {
     const fetchProjects = async () => {
       try {
         const response = await request(`${process.env.REACT_APP_BACKEND_URL}/api/graphql`, projectsQuery);
-        setProjects(response.projects);
+        const response2 = await request(`${process.env.REACT_APP_BACKEND_URL2}/api/graphql`, projectsQuery);
+        const response3 = await request(`${process.env.REACT_APP_BACKEND_URL3}/api/graphql`, projectsQuery);
+        setProjects([...response.projects, ...response2.projects, ...response3.projects]);
         setLoading(false);
       } catch (error) {
         setError(error);
