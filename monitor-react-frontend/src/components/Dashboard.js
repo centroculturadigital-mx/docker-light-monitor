@@ -42,9 +42,9 @@ const Dashboard = () => {
         const response2 = await request(`${process.env.REACT_APP_BACKEND_URL2}/api/graphql`, projectsQuery);
         const response3 = await request(`${process.env.REACT_APP_BACKEND_URL3}/api/graphql`, projectsQuery);
         setProjects([
-          ...addBackendUrl(response.projects, provess.env.REACT_APP_BACKEND_URL), 
-          ...addBackendUrl(response2.projects, provess.env.REACT_APP_BACKEND_URL2),
-          ...addBackendUrl(response3.projects, provess.env.REACT_APP_BACKEND_URL3)
+          ...addBackendUrl(response.projects, process.env.REACT_APP_BACKEND_URL), 
+          ...addBackendUrl(response2.projects, process.env.REACT_APP_BACKEND_URL2),
+          ...addBackendUrl(response3.projects, process.env.REACT_APP_BACKEND_URL3)
         ]);
         setLoading(false);
       } catch (error) {
