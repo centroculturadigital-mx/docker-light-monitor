@@ -34,6 +34,9 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        console.log('REACT_APP_BACKEND_URL', process.env.REACT_APP_BACKEND_URL)
+        console.log('REACT_APP_BACKEND_URL2', process.env.REACT_APP_BACKEND_URL2)
+        console.log('REACT_APP_BACKEND_URL3', process.env.REACT_APP_BACKEND_URL3)
         const response = await request(`${process.env.REACT_APP_BACKEND_URL}/api/graphql`, projectsQuery);
         const response2 = await request(`${process.env.REACT_APP_BACKEND_URL2}/api/graphql`, projectsQuery);
         const response3 = await request(`${process.env.REACT_APP_BACKEND_URL3}/api/graphql`, projectsQuery);
